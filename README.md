@@ -3,7 +3,7 @@
 `filter` usually becomes memory bound for large number of elements. Performing it through flattening-by-expansion approach with
 fast bitwise clz/popc seems to offer a speedup over the builtin filter.
 
-On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `N=100000000` (at futhark version 27.1):
+On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `10M` elements (at futhark version 27.1):
 ```
 bench.fut:bench_filter (no tuning file):
 [100000]i32 [100000]bool:              181μs (95% CI: [     179.4,      183.4])
@@ -18,7 +18,7 @@ bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]i32 [100000000]bool:      16919μs (95% CI: [   16847.5,    16998.1])
 ```
 
-On a NVIDIA A100 with the `cuda` backend, a 5.5x speedup can be observed at `N=1000000000` (at futhark version 27.1 -- UPDATED):
+On a NVIDIA A100 with the `cuda` backend, a 5.5x speedup can be observed at `100M` elements (at futhark version 27.1 -- UPDATED):
 ```
 filterByExpansion/bench.fut:bench_filter (no tuning file):
 [100000]i32 [100000]bool:                 70μs (95% CI: [      70.2,       70.4])
@@ -34,7 +34,8 @@ filterByExpansion/bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]i32 [100000000]bool:          602μs (95% CI: [     602.3,      602.7])
 [1000000000]i32 [1000000000]bool:       4722μs (95% CI: [    4718.2,     4724.8])
 ```
-On a `AMD EPYC 7352 24-Core Processor` with the `multicore` backend, a 1.6x speedup can be observed at `N=100000000` (at futhark version 27.1):
+On a `AMD EPYC 7352 24-Core Processor` with the `multicore` backend, a 1.6x speedup can be observed at `10M` elements,
+and a 1.1x speedup at `100M` elements (at futhark version 27.1):
 ```
 filterByExpansion/bench.fut:bench_filter (no tuning file):
 [100000]i32 [100000]bool:               1348μs (95% CI: [    1324.6,     1376.3])
