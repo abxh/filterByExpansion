@@ -59,6 +59,13 @@ def select_u64 (b: u64) (k: i32) : i32 =
      then select_u32 lower k
      else select_u32 upper (k - low_count) + 32
 
+-- for older futhark versions:
+local
+def exscan [n] 'a (op: a -> a -> a) (ne: a) (as: [n]a) : *[n]a =
+  scatter (map (\_ -> ne) (0..1..<n))
+          (map (+ 1) (0..1..<n))
+          (scan op ne as)
+
 def filterByExpansion [n] 'a (pred: a -> bool) (as: [n]a) : *[]a =
   let num_bits = i64.i32 u64.num_bits
   let size = (n + num_bits - 1) / num_bits
