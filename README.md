@@ -34,3 +34,19 @@ filterByExpansion/bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]i32 [100000000]bool:          602μs (95% CI: [     602.3,      602.7])
 [1000000000]i32 [1000000000]bool:       4722μs (95% CI: [    4718.2,     4724.8])
 ```
+On a `AMD EPYC 7352 24-Core Processor` with the `multicore` backend, a 1.6x speedup can be observed at `N=100000000` (at futhark version 27.1):
+```
+filterByExpansion/bench.fut:bench_filter (no tuning file):
+[100000]i32 [100000]bool:               1348μs (95% CI: [    1324.6,     1376.3])
+[1000000]i32 [1000000]bool:             4266μs (95% CI: [    4212.2,     4333.1])
+[10000000]i32 [10000000]bool:          17319μs (95% CI: [   14311.9,    25529.0])
+[100000000]i32 [100000000]bool:       101105μs (95% CI: [   96136.3,   106276.9])
+[1000000000]i32 [1000000000]bool:    1662636μs (95% CI: [  930973.2,  3533303.2])
+
+filterByExpansion/bench.fut:bench_filter_by_expansion (no tuning file):
+[100000]i32 [100000]bool:               1120μs (95% CI: [    1111.2,     1132.5])
+[1000000]i32 [1000000]bool:             5686μs (95% CI: [    5663.7,     5728.7])
+[10000000]i32 [10000000]bool:          27705μs (95% CI: [   27230.3,    28521.2])
+[100000000]i32 [100000000]bool:       162392μs (95% CI: [  160257.7,   166232.6])
+[1000000000]i32 [1000000000]bool:    1489191μs (95% CI: [ 1414837.8,  1589766.6])
+```
