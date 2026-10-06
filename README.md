@@ -2,7 +2,7 @@
 
 `filter` is usually memory bound. Performing it through flattening-by-expansion approach seems to offer a speedup over the builtin filter.
 
-On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `N=100000000`:
+On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `N=100000000` (at futhark version 27.1):
 ```
 bench.fut:bench_filter (no tuning file):
 [100000]i32 [100000]bool:              181μs (95% CI: [     179.4,      183.4])
@@ -17,7 +17,7 @@ bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]i32 [100000000]bool:      16919μs (95% CI: [   16847.5,    16998.1])
 ```
 
-On a NVIDIA A100 with the `cuda` backend, a 8.3x speedup can be observed at `N=1000000000`:
+On a NVIDIA A100 with the `cuda` backend, a 8.3x speedup can be observed at `N=1000000000` (at futhark version 25.24):
 ```
 bench.fut:bench_filter (no tuning file):
 [100000]i32 [100000]bool:                 72μs (95% CI: [      72.2,       72.4])
