@@ -1,6 +1,6 @@
 # filterByExpansion
 
-`filter` is usually memory bound. Performing it through flattening-by-expansion approach seems to offer a speedup over the builtin filter.
+`filter` is usually memory bound. Performing it through flattening-by-expansion approach with fast bitwise clz/popc seems to offer a speedup over the builtin filter.
 
 On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `N=100000000` (at futhark version 27.1):
 ```
