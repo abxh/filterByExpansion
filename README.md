@@ -18,19 +18,19 @@ bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]i32 [100000000]bool:      16919μs (95% CI: [   16847.5,    16998.1])
 ```
 
-On a NVIDIA A100 with the `cuda` backend, a 8.3x speedup can be observed at `N=1000000000` (at futhark version 25.24):
+On a NVIDIA A100 with the `cuda` backend, a 5.5x speedup can be observed at `N=1000000000` (at futhark version 27.1 -- UPDATED):
 ```
-bench.fut:bench_filter (no tuning file):
-[100000]i32 [100000]bool:                 72μs (95% CI: [      72.2,       72.4])
-[1000000]i32 [1000000]bool:              107μs (95% CI: [     107.3,      107.5])
-[10000000]i32 [10000000]bool:            449μs (95% CI: [     448.0,      449.7])
-[100000000]i32 [100000000]bool:         3943μs (95% CI: [    3939.0,     3960.3])
-[1000000000]i32 [1000000000]bool:      39543μs (95% CI: [   39526.0,    39560.2])
+filterByExpansion/bench.fut:bench_filter (no tuning file):
+[100000]i32 [100000]bool:                 70μs (95% CI: [      70.2,       70.4])
+[1000000]i32 [1000000]bool:              103μs (95% CI: [     102.6,      102.8])
+[10000000]i32 [10000000]bool:            329μs (95% CI: [     328.8,      329.3])
+[100000000]i32 [100000000]bool:         2665μs (95% CI: [    2662.9,     2667.0])
+[1000000000]i32 [1000000000]bool:      26030μs (95% CI: [   26016.2,    26041.4])
 
-bench.fut:bench_filter_by_expansion (no tuning file):
-[100000]i32 [100000]bool:                176μs (95% CI: [     175.6,      175.9])
-[1000000]i32 [1000000]bool:              232μs (95% CI: [     231.8,      233.4])
-[10000000]i32 [10000000]bool:            305μs (95% CI: [     304.9,      305.4])
-[100000000]i32 [100000000]bool:          588μs (95% CI: [     587.5,      588.1])
-[1000000000]i32 [1000000000]bool:       4754μs (95% CI: [    4751.8,     4756.1])
+filterByExpansion/bench.fut:bench_filter_by_expansion (no tuning file):
+[100000]i32 [100000]bool:                143μs (95% CI: [     143.1,      143.5])
+[1000000]i32 [1000000]bool:              147μs (95% CI: [     147.3,      147.6])
+[10000000]i32 [10000000]bool:            267μs (95% CI: [     266.3,      267.4])
+[100000000]i32 [100000000]bool:          602μs (95% CI: [     602.3,      602.7])
+[1000000000]i32 [1000000000]bool:       4722μs (95% CI: [    4718.2,     4724.8])
 ```
