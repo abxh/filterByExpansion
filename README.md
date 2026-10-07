@@ -7,7 +7,7 @@ seems to offer a speedup over the builtin filter.
 
 Note how `filter` can be performed using `expand` so there exists a kind of equivalence:
 ```futhark
-filter pred as = expand (\xs -> i64.bool (pred xs)) (\x _ -> x) as
+let filter pred as = expand (\x -> i64.bool (pred x)) (\x _ -> x) as
 ```
 
 The idea is to perform fast filtering of 64-sized chunks using bitwise clz/popc on a 64-bitset based on the predicate.
