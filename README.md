@@ -1,7 +1,7 @@
 # filterByExpansion
 
-`filter` usually becomes memory bound for large number of elements. Performing it through flattening-by-expansion approach with
-fast bitwise clz/popc seems to offer a speedup over the builtin filter.
+`filter` usually becomes memory bound for large number of elements. Performing it through flattening-by-expansion approach 
+seems to offer a speedup over the builtin filter.
 
 ## Explanation
 
@@ -10,7 +10,8 @@ Note how `filter` can be performed using `expand` so there exists a kind of equi
 filter pred as = expand (\xs -> i64.bool (pred xs)) (\x _ -> x) as
 ```
 
-The idea is to perform fast filtering of 64-sized chunks using bitwise clz/popc. And filter the 64-sized chunks using `expand`:
+The idea is to perform fast filtering of 64-sized chunks using bitwise clz/popc on a 64-bitset based on the predicate.
+And filter the 64-sized chunks using `expand`:
 ```futhark
 -- | Helper function to find the position of the k'th set bit in an u64
 def select_u64 (b: u64) (k: i32) : i32 = ??? -- uses clz/popc
