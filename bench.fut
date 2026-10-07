@@ -10,10 +10,11 @@
 
 -- ==
 -- entry: bench_filter_tuple bench_filter_by_expansion_tuple
--- compiled random input { [100000]u32     [100000]bool    }
--- compiled random input { [1000000]u32    [1000000]bool   }
--- compiled random input { [10000000]u32   [10000000]bool  }
--- compiled random input { [100000000]u32  [100000000]bool }
+-- compiled random input { [100000]u32      [100000]bool     }
+-- compiled random input { [1000000]u32     [1000000]bool    }
+-- compiled random input { [10000000]u32    [10000000]bool   }
+-- compiled random input { [100000000]u32   [100000000]bool  }
+-- compiled random input { [1000000000]u32  [1000000000]bool }
 
 import "./lib/github.com/abxh/filterByExpansion/filterByExpansion"
 

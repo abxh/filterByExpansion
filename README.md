@@ -40,22 +40,36 @@ bench.fut:bench_filter_by_expansion (no tuning file):
 [100000000]u32:      19292μs (95% CI: [   19210.4,    19372.9])
 ```
 
-On a NVIDIA A100 with the `cuda` backend, a 1.03x speedup (EDIT: with the new `bench.fut`) can be observed at `100M` elements
+On a NVIDIA A100 with the `cuda` backend, a 1.36x speedup (EDIT: with the new `bench.fut`) can be observed at `100M` elements
 (at futhark version 27.1):
 ```
-`bench.fut:bench_filter (no tuning file):
-[100000]u32:             56μs (95% CI: [      55.9,       56.1])
-[1000000]u32:            79μs (95% CI: [      78.8,       79.3])
-[10000000]u32:          224μs (95% CI: [     224.2,      224.8])
-[100000000]u32:        1767μs (95% CI: [    1765.9,     1767.8])
-[1000000000]u32:      17193μs (95% CI: [   17181.6,    17203.8])
+bench.fut:bench_filter (no tuning file):
+[100000]u32:                              56μs (95% CI: [      55.9,       56.1])
+[1000000]u32:                             91μs (95% CI: [      90.4,       91.1])
+[10000000]u32:                           248μs (95% CI: [     247.3,      247.9])
+[100000000]u32:                         1767μs (95% CI: [    1766.4,     1768.3])
+[1000000000]u32:                       17188μs (95% CI: [   17179.2,    17197.5])
 
 bench.fut:bench_filter_by_expansion (no tuning file):
-[100000]u32:            125μs (95% CI: [     124.7,      124.9])
-[1000000]u32:           152μs (95% CI: [     152.0,      152.4])
-[10000000]u32:          293μs (95% CI: [     292.7,      293.3])
-[100000000]u32:        1583μs (95% CI: [    1579.7,     1585.8])
-[1000000000]u32:      16552μs (95% CI: [   16455.4,    16636.9])
+[100000]u32:                             128μs (95% CI: [     127.5,      127.8])
+[1000000]u32:                            155μs (95% CI: [     155.2,      155.8])
+[10000000]u32:                           286μs (95% CI: [     285.4,      287.9])
+[100000000]u32:                         1350μs (95% CI: [    1349.5,     1351.3])
+[1000000000]u32:                       12653μs (95% CI: [   12620.7,    12681.2])
+
+bench.fut:bench_filter_tuple (no tuning file):
+[100000]u32 [100000]bool:                 44μs (95% CI: [      43.9,       44.0])
+[1000000]u32 [1000000]bool:               81μs (95% CI: [      81.2,       81.5])
+[10000000]u32 [10000000]bool:            328μs (95% CI: [     328.1,      328.8])
+[100000000]u32 [100000000]bool:         2662μs (95% CI: [    2660.8,     2663.3])
+[1000000000]u32 [1000000000]bool:      26014μs (95% CI: [   25997.0,    26024.3])
+
+bench.fut:bench_filter_by_expansion_tuple (no tuning file):
+[100000]u32 [100000]bool:                122μs (95% CI: [     122.3,      122.6])
+[1000000]u32 [1000000]bool:              150μs (95% CI: [     149.7,      150.1])
+[10000000]u32 [10000000]bool:            252μs (95% CI: [     252.1,      252.8])
+[100000000]u32 [100000000]bool:          582μs (95% CI: [     581.5,      582.1])
+[1000000000]u32 [1000000000]bool:       4704μs (95% CI: [    4701.8,     4706.2])
 ```
 
 Interestingly, using tuples as elements and filter after booleans, one can achieve a 5.5x speedup at same `100M` size between
