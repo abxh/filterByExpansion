@@ -70,7 +70,6 @@ def filterByExpansion [n] 'a (pred: a -> bool) (as: [n]a) : *[]a =
       let b = if i < n then pred as[i] else false
       in u64.set_bit (i32.i64 i) mask (i32.bool b)
   let masks = tabulate m f
-  let offs = tabulate m (* num_bits)
-  let szs = map (u64.popc >-> i64.i32) masks
+  let szs = map (\x -> i64.i32 (u64.popc x)) masks
   let (idxs, iotas) = repl_segm_iota szs
-  in map2 (\i j -> as[offs[i] + i64.i32 (select_u64 masks[i] (i32.i64 j))]) idxs iotas
+  in map2 (\i j -> as[i * num_bits + i64.i32 (select_u64 masks[i] (i32.i64 j))]) idxs iotas
