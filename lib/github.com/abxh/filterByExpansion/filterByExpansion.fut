@@ -68,10 +68,11 @@ def exscan [n] 'a (op: a -> a -> a) (ne: a) (as: [n]a) : *[n]a =
 
 def filterByExpansion [n] 'a (pred: a -> bool) (as: [n]a) : *[]a =
   let num_bits = i64.i32 u64.num_bits
-  let size = (n + num_bits - 1) / num_bits
-  let szs_ = replicate size num_bits
-  let szs = if n > 0 then szs_ with [size - 1] = n - (size - 1) * num_bits else szs_
-  let ofs = exscan (+) 0 szs
+  let m = (n + num_bits - 1) / num_bits
+  let ofs =
+    if n == 0
+    then []
+    else map (\i -> i * num_bits) (iota m) with [m - 1] = n - (m - 1) * num_bits
   let f o =
     loop mask = 0
     for j < num_bits do
