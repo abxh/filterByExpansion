@@ -12,5 +12,5 @@ import "./lib/github.com/abxh/filterByExpansion/filterByExpansion"
 entry bench_filter [n] (xs: [n]u32) : *[]u32 =
   filter (\xs -> xs %% 2 == 0) xs
 
-entry bench_filter_by_expansion [n] (xs: [n]u32) : []u32 =
+entry bench_filter_by_expansion [n] (xs: [n]u32) : *[]u32 =
   filterByExpansion (\xs -> xs %% 2 == 0) xs
