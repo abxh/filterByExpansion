@@ -2,10 +2,11 @@
 --
 -- ==
 -- entry: bench_filter bench_filter_by_expansion
--- compiled random input { [100000]u32    }
--- compiled random input { [1000000]u32   }
--- compiled random input { [10000000]u32  }
--- compiled random input { [100000000]u32 }
+-- compiled random input { [100000]u32     }
+-- compiled random input { [1000000]u32    }
+-- compiled random input { [10000000]u32   }
+-- compiled random input { [100000000]u32  }
+-- compiled random input { [1000000000]u32 }
 
 import "./lib/github.com/abxh/filterByExpansion/filterByExpansion"
 
