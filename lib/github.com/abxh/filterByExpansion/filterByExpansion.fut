@@ -59,28 +59,18 @@ def select_u64 (b: u64) (k: i32) : i32 =
      then select_u32 lower k
      else select_u32 upper (k - low_count) + 32
 
--- for older futhark versions:
-local
-def exscan [n] 'a (op: a -> a -> a) (ne: a) (as: [n]a) : *[n]a =
-  scatter (map (\_ -> ne) (0..1..<n))
-          (map (+ 1) (0..1..<n))
-          (scan op ne as)
-
+-- the interesting filter impl:
 def filterByExpansion [n] 'a (pred: a -> bool) (as: [n]a) : *[]a =
   let num_bits = i64.i32 u64.num_bits
   let m = (n + num_bits - 1) / num_bits
-  let ofs =
-    if n == 0
-    then []
-    else map (\i -> i * num_bits) (iota m) with [m - 1] = n - (m - 1) * num_bits
-  let f o =
+  let f k =
     loop mask = 0
     for j < num_bits do
-      let i = o + j
+      let i = k * num_bits + j
       let b = if i < n then pred as[i] else false
       in u64.set_bit (i32.i64 i) mask (i32.bool b)
-  let arr_szs = zip ofs (map f ofs)
-  let g (o, mask) k =
-    let j = i64.i32 <| select_u64 mask (i32.i64 k)
-    in as[o + j]
-  in expand (\(_, mask) -> i64.i32 <| u64.popc mask) g arr_szs
+  let masks = tabulate m f
+  let offs = tabulate m (* num_bits)
+  let szs = map (u64.popc >-> i64.i32) masks
+  let (idxs, iotas) = repl_segm_iota szs
+  in map2 (\i j -> as[offs[i] + i64.i32 (select_u64 masks[i] (i32.i64 j))]) idxs iotas
