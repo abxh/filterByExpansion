@@ -68,7 +68,7 @@ def filterByExpansion [n] 'a (pred: a -> bool) (as: [n]a) : *[]a =
     for j < num_bits do
       let i = k * num_bits + j
       let b = if i < n then pred as[i] else false
-      in u64.set_bit (i32.i64 i) mask (i32.bool b)
+      in u64.set_bit (i32.i64 j) mask (i32.bool b)
   let masks = tabulate m f
   let szs = map (\x -> i64.i32 (u64.popc x)) masks
   let (idxs, iotas) = repl_segm_iota szs
