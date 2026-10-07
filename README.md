@@ -3,6 +3,27 @@
 `filter` usually becomes memory bound for large number of elements. Performing it through flattening-by-expansion approach with
 fast bitwise clz/popc seems to offer a speedup over the builtin filter.
 
+## Explanation
+
+Note how `filter` can be performed using `expand` so there exists a kind of equivalence:
+```futhark
+filter pred as = expand (\xs -> i64.bool (pred xs)) (\x _ -> x) as
+```
+
+The idea is to perform fast filtering of 64-sized chunks using bitwise clz/popc. And filter the 64-sized chunks using `expand`:
+```futhark
+-- | Helper function to find the position of the k'th set bit in an u64
+def select_u64 (b: u64) (k: i32) : i32 = ??? -- uses clz/popc
+
+expand (\(_, mask) -> i64.i32 <| u64.popc mask)
+       (\(o, mask) k -> as[o + i64.i32 (select_u64 mask (i32.i64 k))])
+       arr_szs
+```
+
+TODO: rest of the explanation.
+
+## Benchmarks
+
 On a NVIDIA M2000M with the `cuda` backend, a ~4x speedup can be observed at `10M` elements (at futhark version 27.1):
 ```
 bench.fut:bench_filter (no tuning file):
